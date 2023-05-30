@@ -1,0 +1,39 @@
+body{
+	  font-family: Jacques Francois;
+	  background-color: #f1f1f1;
+	}
+
+    .container {
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      margin-top: 100px;
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+	
+	.container button {
+	  width: 40px;
+	  margin-top: 5px;
+	  margin-left: 5px;
+      background-color: #b1c0f5;
+      color: #373737;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .box {
+      width: 400px;
+      height: 100px;
+      padding: 20px;
+      background-color: #d9ead3;
+      margin: 10px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    
+	

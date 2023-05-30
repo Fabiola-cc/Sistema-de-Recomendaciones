@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>búsqueda de recomendaciones</title>
+
+    <!-- Custom styles for this template-->
+    <link href="css/estiloRecomendaciones" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container">
+    <h1>Búsqueda de Películas</h1>
+    <form>
+      <div class="form-group">
+        <label for="actor">Actor:</label>
+        <input type="text" id="actor" name="actor" placeholder="Nombre del actor">
+      </div>
+      <div class="form-group">
+        <label for="director">Director:</label>
+        <input type="text" id="director" name="director" placeholder="Nombre del director">
+      </div>
+      <div class="form-group">
+        <label>Género:</label>
+        <label for="genre-action"><input type="radio" id="genre-action" name="genre" value="acción"> Acción</label>
+        <label for="genre-comedy"><input type="radio" id="genre-comedy" name="genre" value="comedia"> Comedia</label>
+        <label for="genre-terror"><input type="radio" id="genre-drama" name="genre" value="drama"> Terror</label>
+        <label for="genre-romance"><input type="radio" id="genre-drama" name="genre" value="drama"> Romance </label>
+        <label for="genre-SciFi"><input type="radio" id="genre-drama" name="genre" value="drama"> Ciencia Ficción </label>
+      </div>
+      <div class="form-group">
+        <label for="ranking">Ranking:</label>
+        <input type="range" id="ranking" name="ranking" min="1" max="10" step="1">
+      </div>
+      <input type="submit" value="Buscar" class="button">
+    </form>
+  </div>
+
+  
+  
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!--This will run the query-->
+    <br>
+    <center><button id="query-button"><h4>Recommed</h4></button></center>
+    <hr>
+    <center><h2>Result</h2></center>
+    <hr>
+    <center><div id="result"></div></center>
+   
+
+
+    <div class="database-elements">
+        <!-- Cosas de la base de datos -->
+    </div>
+
+
+
+	<!--All code related neo4j consult-->
+    <script>
+        // Set up the Neo4j connection
+
+        const driver = neo4j.driver("bolt+s://7e38f55f9ecd09ea92b71eba87fb2ed6.neo4jsandbox.com:7687", neo4j.auth.basic("neo4j", "insurance-probe-males"));
+
+        // Create a session to run queries
+        const session = driver.session();
+
+        // Define the Cypher query
+      
+        // Function to handle the button click event
+        function handleQueryButtonClick() {
+        // Clear previous results
+        const resultContainer = document.getElementById("result-container");
+        resultContainer.innerHTML = "";
+
+        <!-- SLIDE BAR USAGE -->
+        var slider = document.getElementById("mySlider");
+
+        slider.addEventListener("change", function() {
+          var value = slider.value;
+          // Realizar acciones con el valor seleccionado
+        });
+
+
+        //Getting the data from the form created
+        const form = document.getElementById("filter-form");
+        const goals = form.elements.goals.value;
+        const assistances = form.elements.assistances.value;
+        const passes = form.elements.passes.value;
+        const age = form.elements.age.value;
+        const recoveries = form.elements.recoveries.value;
+
+        console.log("goals received: "+goals)
+        console.log("assistances received: "+assistances)
+        console.log("passes received: "+passes)
+        console.log("recoveries received: "+recoveries)
+        console.log("age received: "+age)
+
+        const query = 'match (n) where n.goals >= '+goals+" and n.assists >= "+assistances+" and n.recov >= "+recoveries+" and n.PasTotCmp >= "+passes+" and n.age = "+age+" return(n)";
+        console.log('The query generated: '+query)
+
+        // Execute the query
+        session.run(query)
+            .then(result => {
+
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = ''; // Clear previous results
+
+            // Process the query result
+            result.records.forEach(record => {
+                var node = record.get("n");
+
+                var player_name = node.properties.name
+                var player_league = node.properties.league
+                var player_position = node.properties.pos
+                var goals_data = node.properties.goals
+                var assistances_data = node.properties.assists
+                var passes_data = node.properties.PasTotCmp
+                var recoveries_data = node.properties.recov
+                var age_data = node.properties.age
+                var aeriawon_data = node.properties.aerialWon
+
+                var properties = node.properties
+                console.log(properties)
+
+                const paragraph = document.createElement('p');
+                paragraph.innerHTML = "<h1>"+player_name+"</h1>"+"Position: "+player_position+"<br>"+player_league+"<br>"+"Goals: "+goals_data+"<br>"+"Age: "+age_data+"<br>"+"Total passes completed: "+passes_data+"<br>"+"Assistances: "+assistances_data+"<br>"+"Recoveries: "+recoveries_data+"<br>"+"Aerial won: "+aeriawon_data
+                var hrLine = document.createElement("hr")
+
+                const lineBreak = document.createElement('br');
+                resultDiv.appendChild(lineBreak);
+
+                // Append the paragraph element to the result div
+                resultDiv.appendChild(paragraph);
+                resultDiv.appendChild(hrLine)
+
+            });
+            })
+            .catch(error => {
+            // Handle any errors
+            console.error("Error executing Neo4j query:", error);
+            });
+        }
+
+        // Add event listener to the query button
+        const queryButton = document.getElementById("query-button");
+        queryButton.addEventListener("click", handleQueryButtonClick);
+
+        // Close the session and driver when done
+        function closeSessionAndDriver() {
+        session.close();
+        driver.close();
+        }
+
+        // Call closeSessionAndDriver when the page is unloaded or refreshed
+        window.addEventListener("beforeunload", closeSessionAndDriver);
+
+    </script>
+
+
+</body>
+
+</html>

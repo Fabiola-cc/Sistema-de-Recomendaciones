@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Presentación</title>
-  <style>
     body {
       font-family: Jacques Francois;
       background-color: #f1f1f1;
@@ -26,12 +21,10 @@
       border-radius: 90px;
       margin-bottom: 50px;
     }
-    .container label, .container input[type="text"], .container input[type="password"], .container button {
-      display: block;
-      margin-bottom: 10px;
-      width: 100%;
-    }
     .container button {
+      background-color: #f1f1f1;
+      display: block;
+      width: 100%;
       font-family: Jacques Francois;
       padding: 10px;
       font-weight: bold;
@@ -39,17 +32,14 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 20px;
+      font-size: 25px;
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-  	<h1>INSERTAR TÍTULO :)</h1>
-    <h2>BIENVENIDO</h2>
-    <button onclick="location.href='login.html'">INICIAR SESIÓN</button>
-    <button onclick="location.href='registro.html'">REGISTRARSE</button>
     
-  </div>
-</body>
-</html>
+    .container a {
+      color: #16537e;
+    }
+    
+     footer {
+      text-align: center;
+      margin-top: 150px;
+    }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Añadir recomendaciones</title>
+    
+    <!-- Custom styles for this template-->
+    <link href="css/general_style.css" rel="stylesheet">
+    <link href="css/estiloRecomendaciones.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<div class="container">
+    <h1>Recomendar Películas</h1>
+    <form id="search-form">
+      <div class="form-group">
+        <label for="actor">Actor:</label>
+        <input type="text" id="actor" name="actor" placeholder="Nombre del actor">
+      </div>
+      <div class="form-group">
+        <label for="director">Director:</label>
+        <input type="text" id="director" name="director" placeholder="Nombre del director">
+      </div>
+      <div class="form-group">
+        <label>Género:</label>
+        <label for="genre-action"><input type="radio" id="genre-action" name="genre" value="acción"> Acción</label>
+        <label for="genre-comedy"><input type="radio" id="genre-comedy" name="genre" value="comedia"> Comedia</label>
+        <label for="genre-terror"><input type="radio" id="genre-drama" name="genre" value="drama"> Terror</label>
+        <label for="genre-romance"><input type="radio" id="genre-drama" name="genre" value="drama"> Romance </label>
+        <label for="genre-SciFi"><input type="radio" id="genre-drama" name="genre" value="drama"> Ciencia Ficción </label>
+      </div>
+      <div class="form-group">
+        <label for="ranking">Ranking:</label>
+        <input type="range" id="ranking" name="ranking" min="1" max="10" step="1">
+      </div>
+      <input type="submit" value="Guardar Recomendación" class="button">
+    </form>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+  </div>
+
+</body>
+
+
+<script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('search-form');
+    var recommendationsList = document.getElementById('recommendations-list');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var actor = document.getElementById('actor').value;
+      var director = document.getElementById('director').value;
+      var genre = document.querySelector('input[name="genre"]:checked').value;
+      var ranking = document.getElementById('ranking').
+  </script>
+</html>
